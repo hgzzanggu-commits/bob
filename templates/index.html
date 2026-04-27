@@ -1,228 +1,379 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BOBBOBBOB - PREMIUM</title>
+    <title>BOBBOBBOB - LEGEND EDITION</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Noto+Sans+KR:wght@300;700;900&display=swap');
 
         :root {
             --bg: #050507;
-            --card: rgba(255, 255, 255, 0.03);
             --primary: #ff3e00;
             --secondary: #00f2ff;
-            --neon: #7000ff;
             --text: #ffffff;
         }
 
         body {
-            margin: 0; background-color: var(--bg); color: var(--text);
+            margin: 0;
+            background-color: var(--bg);
+            color: var(--text);
             font-family: 'Noto Sans KR', sans-serif;
-            display: flex; justify-content: center; align-items: center; min-height: 100vh;
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(112, 0, 255, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(255, 62, 0, 0.15) 0%, transparent 40%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
         }
 
-        .container { width: 90%; max-width: 440px; perspective: 1000px; }
+        /* 🖼️ 배경 이미지 설정 (형님이 주신 사진) */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('/67.png') no-repeat center center;
+            background-size: cover;
+            opacity: 0.25;
+            /* 배경 이미지를 은은하게 깔아서 글자가 잘 보이게 함 */
+            z-index: -1;
+            filter: grayscale(0.5) contrast(1.2);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 440px;
+            z-index: 1;
+        }
 
         /* 메인 카드 디자인 */
         .main-card {
-            background: var(--card);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 40px;
             padding: 40px 20px;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
             text-align: center;
             position: relative;
-            overflow: hidden;
-            animation: cardEntrance 0.8s ease-out;
-        }
-
-        @keyframes cardEntrance {
-            from { transform: translateY(30px) rotateX(-10deg); opacity: 0; }
-            to { transform: translateY(0) rotateX(0); opacity: 1; }
         }
 
         h1 {
-            font-family: 'Montserrat'; font-size: 3rem; margin: 0;
+            font-family: 'Montserrat';
+            font-size: 3.2rem;
+            margin: 0;
             background: linear-gradient(to right, #fff, var(--secondary), var(--primary));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            letter-spacing: -4px; filter: drop-shadow(0 0 10px rgba(0, 242, 255, 0.3));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -4px;
         }
 
         #status-bar {
-            display: inline-block; padding: 4px 12px; border-radius: 100px;
-            background: rgba(255, 255, 255, 0.05); font-size: 0.7rem;
-            color: var(--secondary); font-weight: 900; margin-bottom: 20px;
-            border: 1px solid rgba(0, 242, 255, 0.2);
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 100px;
+            background: rgba(0, 242, 255, 0.1);
+            font-size: 0.7rem;
+            color: var(--secondary);
+            font-weight: 900;
+            margin-bottom: 20px;
+            border: 1px solid rgba(0, 242, 255, 0.3);
         }
 
         .menu-display {
-            height: 180px; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; position: relative;
+            height: 180px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
-        .food-icon { font-size: 5.5rem; filter: drop-shadow(0 0 20px rgba(255,255,255,0.2)); }
-        .food-name { font-size: 2.5rem; font-weight: 900; margin-top: 10px; letter-spacing: -1px; }
+        .food-icon {
+            font-size: 5.5rem;
+            filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.2));
+        }
 
-        /* 필터 섹션 */
+        .food-name {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-top: 10px;
+        }
+
         .section-header {
-            display: flex; align-items: center; margin: 25px 0 12px 5px;
-            font-size: 0.75rem; font-weight: 900; color: #444; letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            margin: 25px 0 12px 5px;
+            font-size: 0.75rem;
+            font-weight: 900;
+            color: #777;
+            letter-spacing: 2px;
         }
-        .section-header::after { content: ''; flex: 1; height: 1px; background: #222; margin-left: 10px; }
 
-        .button-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+        .section-header::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #333;
+            margin-left: 10px;
+        }
+
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
 
         .filter-btn {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 18px; padding: 12px 0; color: #666;
-            cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex; flex-direction: column; align-items: center; gap: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 18px;
+            padding: 12px 0;
+            color: #999;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
         }
-
-        .filter-btn .btn-icon { font-size: 1.2rem; margin-bottom: 2px; filter: grayscale(1); opacity: 0.5; }
-        .filter-btn span { font-size: 0.65rem; font-weight: 700; }
 
         .filter-btn.active {
-            background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.01));
-            border-color: var(--secondary); color: var(--secondary);
-            box-shadow: 0 0 20px rgba(0, 242, 255, 0.15);
+            background: white;
+            color: black;
+            border-color: white;
             transform: translateY(-4px);
+            font-weight: 900;
         }
-        .filter-btn.active .btn-icon { filter: grayscale(0); opacity: 1; }
 
-        /* 메인 버튼 */
+        .filter-btn .btn-icon {
+            font-size: 1.2rem;
+        }
+
         .btn-pick {
-            width: 100%; padding: 22px; margin-top: 35px; border: none;
-            border-radius: 25px; background: var(--text); color: var(--bg);
-            font-size: 1.4rem; font-weight: 900; cursor: pointer;
-            transition: 0.4s; position: relative; overflow: hidden;
+            width: 100%;
+            padding: 22px;
+            margin-top: 35px;
+            border: none;
+            border-radius: 25px;
+            background: var(--text);
+            color: var(--bg);
+            font-size: 1.5rem;
+            font-weight: 900;
+            cursor: pointer;
+            transition: 0.4s;
         }
 
         .btn-pick:hover {
-            transform: scale(1.02); background: var(--secondary);
-            box-shadow: 0 0 30px rgba(0, 242, 255, 0.4);
+            background: var(--secondary);
+            transform: scale(1.02);
+            box-shadow: 0 0 30px rgba(0, 242, 255, 0.5);
         }
 
-        .btn-pick:active { transform: scale(0.96); }
+        .rolling {
+            animation: matrix 0.15s infinite linear;
+        }
 
-        /* 애니메이션 효과 */
-        .rolling { animation: matrix 0.15s infinite linear; }
         @keyframes matrix {
-            0% { transform: scale(1) skew(0); filter: blur(0); }
-            50% { transform: scale(0.95) skew(2deg); filter: blur(8px); opacity: 0.5; }
-            100% { transform: scale(1) skew(0); filter: blur(0); }
+            0% {
+                transform: skew(0);
+            }
+
+            50% {
+                transform: skew(3deg);
+                opacity: 0.6;
+            }
+
+            100% {
+                transform: skew(0);
+            }
         }
 
-        #quote { font-size: 0.85rem; color: #555; margin-top: 15px; min-height: 1.2rem; font-weight: 300; }
+        #quote {
+            font-size: 0.9rem;
+            color: #888;
+            margin-top: 15px;
+            font-weight: 300;
+        }
+
+        /* 마스코트 이미지 카드 하단에 추가 */
+        .mascot-preview {
+            margin-top: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            border: 2px solid var(--secondary);
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        .mascot-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
     </style>
 </head>
+
 <body>
 
-<div class="container">
-    <div id="status-bar">SYSTEM READY / <span id="remain">0</span> LEFT</div>
-    <h1>BOBBOBBOB</h1>
-    
-    <div class="main-card">
-        <div class="menu-display" id="menuResult">
-            <div class="food-icon">💎</div>
-            <div class="food-name" style="color:#333">READY?</div>
+    <div class="container">
+        <div id="status-bar">67 최고! / <span id="remain">0</span> READY</div>
+        <h1>BOBBOBBOB</h1>
+
+        <div class="main-card">
+            <div class="menu-display" id="menuResult">
+                <div class="food-icon">🥓</div>
+                <div class="food-name">START!</div>
+            </div>
+            <div id="quote">재빈이와 은찬이가 보장하는 맛집 룰렛</div>
+            <div class="mascot-preview">
+                <img src="/67.png" alt="67 Mascot">
+            </div>
         </div>
-        <div id="quote">당신의 완벽한 한 끼를 위하여</div>
+
+        <div class="section-header">TIME</div>
+        <div class="button-grid">
+            <button class="filter-btn" onclick="toggleTag(this, '아침')">
+                <div class="btn-icon">🌅</div><span>MOR</span>
+            </button>
+            <button class="filter-btn" onclick="toggleTag(this, '점심')">
+                <div class="btn-icon">☀️</div><span>LUN</span>
+            </button>
+            <button class="filter-btn" onclick="toggleTag(this, '저녁')">
+                <div class="btn-icon">🌙</div><span>DIN</span>
+            </button>
+            <button class="filter-btn" onclick="toggleTag(this, '야식')">
+                <div class="btn-icon">🦉</div><span>NIT</span>
+            </button>
+        </div>
+
+        <div class="section-header">VIBE</div>
+        <div class="button-grid">
+            <button class="filter-btn" onclick="toggleTag(this, '헤비함')">
+                <div class="btn-icon">🍔</div><span>HVY</span>
+            </button>
+            <button class="filter-btn" onclick="toggleTag(this, '가벼움')">
+                <div class="btn-icon">🥗</div><span>LGT</span>
+            </button>
+            <button class="filter-btn" onclick="toggleTag(this, '매콤함')">
+                <div class="btn-icon">🌶️</div><span>HOT</span>
+            </button>
+            <button class="filter-btn" onclick="toggleTag(this, '혼밥용')">
+                <div class="btn-icon">👤</div><span>SOL</span>
+            </button>
+        </div>
+
+        <button class="btn-pick" onclick="handleSpin()">🎰 JACKPOT</button>
     </div>
 
-    <div class="section-header">TIMELINE</div>
-    <div class="button-grid">
-        <button class="filter-btn" onclick="toggleTag(this, '아침')"><div class="btn-icon">🌅</div><span>MORNING</span></button>
-        <button class="filter-btn" onclick="toggleTag(this, '점심')"><div class="btn-icon">☀️</div><span>LUNCH</span></button>
-        <button class="filter-btn" onclick="toggleTag(this, '저녁')"><div class="btn-icon">🌙</div><span>DINNER</span></button>
-        <button class="filter-btn" onclick="toggleTag(this, '야식')"><div class="btn-icon">🦉</div><span>NIGHT</span></button>
-    </div>
+    <script>
+        // 🍱 67팀 맞춤 데이터 (돼지곱창볶음 추가!)
+        const foodDB = [
+            { n: "제육볶음", i: "🥩", t: ["점심", "매콤함", "혼밥용", "헤비함"], q: "고기 반찬은 못 참지." },
+            { n: "돈까스", i: "🍛", t: ["점심", "헤비함", "혼밥용"], q: "실패 없는 선택." },
+            { n: "마라탕", i: "🍲", t: ["저녁", "야식", "매콤함", "헤비함", "혼밥용"], q: "푸주랑 분모자 듬뿍!" },
+            { n: "뿌링클", i: "🍗", t: ["저녁", "야식", "헤비함"], q: "가루까지 싹싹 긁어먹자." },
+            { n: "연어 포케", i: "🥗", t: ["점심", "가벼움", "혼밥용"], q: "건강 챙기는 현대인 코스프레." },
+            { n: "불닭볶음면", i: "🔥", t: ["야식", "매콤함", "혼밥용", "가벼움"], q: "치즈 한 장 올리면 극락." },
+            { n: "삼겹살", i: "🥓", t: ["저녁", "헤비함"], q: "기름칠 좀 해야지?" },
+            { n: "그릭 요거트", i: "🥛", t: ["아침", "가벼움", "혼밥용"], q: "꾸덕함의 끝판왕." },
+            { n: "순대국밥", i: "🥣", t: ["아침", "점심", "저녁", "혼밥용"], q: "부추 팍팍 넣었어?" },
+            { n: "평양냉면", i: "❄️", t: ["점심", "가벼움"], q: "이 슴슴함이 정답이다." },
+            { n: "수제버거", i: "🍔", t: ["점심", "저녁", "헤비함", "혼밥용"], q: "콜라 말고 밀크쉐이크?" },
+            { n: "초밥 세트", i: "🍣", t: ["점심", "저녁", "가벼움", "혼밥용"], q: "와사비 조심해라." },
+            { n: "떡볶이", i: "🍢", t: ["점심", "저녁", "야식", "매콤함", "헤비함"], q: "튀김 범벅은 필수지." },
+            { n: "김치찌개", i: "🥘", t: ["점심", "저녁", "매콤함", "혼밥용"], q: "엄마 손맛 그리울 때." },
+            { n: "매운 갈비찜", i: "🍖", t: ["저녁", "매콤함", "헤비함"], q: "밥 볶아 먹어야 끝남." },
+            { n: "콩나물국밥", i: "🥣", t: ["아침", "가벼움", "혼밥용"], q: "해장 끝판왕 납시오." },
+            { n: "피자", i: "🍕", t: ["저녁", "야식", "헤비함"], q: "피클 많이 달라고 해." },
+            { n: "짬뽕", i: "🔥", t: ["점심", "매콤함", "혼밥용"], q: "완뽕 가즈아!" },
+            { n: "베이글", i: "🥯", t: ["아침", "가벼움", "혼밥용"], q: "크림치즈 두껍게 바르자." },
+            { n: "족발", i: "🐷", t: ["저녁", "야식", "헤비함"], q: "쟁반막국수랑 같이!" },
+            { n: "샌드위치", i: "🥪", t: ["아침", "점심", "가벼움", "혼밥용"], q: "서브웨이 고?" },
+            { n: "곱창 전골", i: "🍲", t: ["저녁", "야식", "헤비함"], q: "소주가 술술 들어간다." },
+            { n: "라멘", i: "🍜", t: ["점심", "저녁", "헤비함", "혼밥용"], q: "차슈 추가는 매너." },
+            { n: "부대찌개", i: "🥘", t: ["점심", "저녁", "헤비함"], q: "햄은 다 내 거." },
+            { n: "물회", i: "🐟", t: ["저녁", "가벼움", "매콤함"], q: "머리가 띵하게 시원해." },
+            { n: "찜닭", i: "🐔", t: ["점심", "저녁", "헤비함"], q: "납작당면이 진리." },
+            { n: "타코", i: "🌮", t: ["점심", "저녁", "가벼움", "혼밥용"], q: "과카몰리 듬뿍!" },
+            { n: "김밥", i: "🍙", t: ["아침", "점심", "가벼움", "혼밥용"], q: "라면 국물에 찍먹." },
+            { n: "불고기", i: "🥩", t: ["점심", "저녁", "헤비함"], q: "단짠단짠의 정석." },
+            { n: "육개장", i: "🥣", t: ["점심", "매콤함", "혼밥용"], q: "얼큰하게 한 사발." },
+            { n: "파스타", i: "🍝", t: ["점심", "저녁", "가벼움"], q: "면치기 금지." },
+            { n: "치즈버거", i: "🍔", t: ["점심", "저녁", "헤비함", "혼밥용"], q: "치즈 추가 필수." },
+            { n: "닭발", i: "🐾", t: ["야식", "매콤함", "가벼움"], q: "주먹밥 비벼라." },
+            { n: "회덮밥", i: "🥣", t: ["점심", "가벼움", "혼밥용"], q: "야채가 더 많아?" },
+            { n: "감자탕", i: "🍲", t: ["저녁", "야식", "헤비함"], q: "뼈 사이에 고기가 진국." },
+            { n: "칼국수", i: "🍜", t: ["점심", "가벼움", "혼밥용"], q: "김치가 맛있어야 해." },
+            { n: "우동", i: "🥢", t: ["점심", "저녁", "가벼움", "혼밥용"], q: "휴게소 느낌 알지?" },
+            { n: "규동", i: "🍛", t: ["점심", "혼밥용"], q: "노른자 톡." },
+            { n: "찜갈비", i: "🍖", t: ["저녁", "매콤함", "헤비함"], q: "양념에 밥 비벼." },
+            { n: "순두부찌개", i: "🥘", t: ["점심", "매콤함", "혼밥용"], q: "몽글몽글 순두부." },
+            { n: "냉모밀", i: "🧊", t: ["점심", "가벼움"], q: "와사비 팍팍." },
+            { n: "짜장면", i: "🍝", t: ["점심", "혼밥용"], q: "단무지 많이." },
+            { n: "똠양꿍", i: "🥣", t: ["저녁", "매콤함", "가벼움"], q: "호불호 끝판왕." },
+            { n: "월남쌈", i: "🌯", t: ["점심", "저녁", "가벼움"], q: "예쁘게 싸봐." },
+            { n: "샤브샤브", i: "🍲", t: ["저녁", "가벼움"], q: "마지막은 칼국수." },
+            { n: "텐동", i: "🍤", t: ["점심", "헤비함", "혼밥용"], q: "바삭함이 생명." },
+            { n: "낙지볶음", i: "🐙", t: ["점심", "저녁", "매콤함"], q: "땀 뻘뻘 흘리며." },
+            { n: "곰탕", i: "🥣", t: ["아침", "점심", "가벼움", "혼밥용"], q: "깍두기가 다 했다." },
+            { n: "카레라이스", i: "🍛", t: ["점심", "혼밥용"], q: "3분 요리 아냐." },
+            { n: "닭갈비", i: "🐔", t: ["저녁", "매콤함", "헤비함"], q: "치즈 사리 추가!" }
+        ];
 
-    <div class="section-header">VIBE</div>
-    <div class="button-grid">
-        <button class="filter-btn" onclick="toggleTag(this, '헤비함')"><div class="btn-icon">🍔</div><span>HEAVY</span></button>
-        <button class="filter-btn" onclick="toggleTag(this, '가벼움')"><div class="btn-icon">🥗</div><span>LIGHT</span></button>
-        <button class="filter-btn" onclick="toggleTag(this, '매콤함')"><div class="btn-icon">🌶️</div><span>SPICY</span></button>
-        <button class="filter-btn" onclick="toggleTag(this, '혼밥용')"><div class="btn-icon">👤</div><span>SOLO</span></button>
-    </div>
+        let selectedTags = new Set();
+        let currentPool = [];
 
-    <button class="btn-pick" onclick="handleSpin()">🎰 JACKPOT</button>
-</div>
-
-<script>
-    // 🍱 데이터는 이전과 동일 (여기서 만 개까지 확장 가능!)
-    const foodDB = [
-        { n: "제육볶음", i: "🥩", t: ["점심", "매콤함", "혼밥용", "헤비함"], q: "고기 반찬은 못 참지." },
-        { n: "돈까스", i: "🍛", t: ["점심", "헤비함", "혼밥용"], q: "실패 없는 선택." },
-        { n: "마라탕", i: "🍲", t: ["저녁", "야식", "매콤함", "헤비함", "혼밥용"], q: "푸주랑 분모자 듬뿍!" },
-        { n: "뿌링클", i: "🍗", t: ["저녁", "야식", "헤비함"], q: "가루까지 싹싹 긁어먹자." },
-        { n: "연어 포케", i: "🥗", t: ["점심", "가벼움", "혼밥용"], q: "건강 챙기는 현대인 코스프레." },
-        { n: "삼겹살", i: "🥓", t: ["저녁", "헤비함"], q: "기름칠 좀 해야지?" },
-        { n: "평양냉면", i: "❄️", t: ["점심", "가벼움"], q: "이 슴슴함이 정답이다." },
-        { n: "초밥 세트", i: "🍣", t: ["점심", "저녁", "가벼움", "혼밥용"], q: "와사비 조심해라." },
-        { n: "순대국밥", i: "🥣", t: ["아침", "점심", "저녁", "혼밥용"], q: "부추 팍팍 넣었어?" },
-        { n: "불닭볶음면", i: "🔥", t: ["야식", "매콤함", "혼밥용", "가벼움"], q: "치즈 한 장 올리면 극락." }
-        // ... 생략 (위의 50개 데이터 그대로 사용하면 됨)
-    ];
-
-    let selectedTags = new Set();
-    let currentPool = [];
-
-    function shuffle(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
-        return array;
-    }
-
-    function toggleTag(btn, tag) {
-        selectedTags.has(tag) ? selectedTags.delete(tag) : selectedTags.add(tag);
-        btn.classList.toggle('active');
-        resetPool();
-    }
-
-    function resetPool() {
-        const tags = Array.from(selectedTags);
-        const filtered = tags.length === 0 ? [...foodDB] : foodDB.filter(f => tags.every(t => f.t.includes(t)));
-        currentPool = shuffle([...filtered]);
-        document.getElementById('remain').innerText = currentPool.length;
-    }
-
-    function handleSpin() {
-        if (currentPool.length === 0) resetPool();
-        const menuEl = document.getElementById('menuResult');
-        const quoteEl = document.getElementById('quote');
-        
-        if (currentPool.length === 0) {
-            menuEl.innerHTML = `<div class="food-icon">🚫</div><div class="food-name">EMPTY</div>`;
-            return;
-        }
-
-        menuEl.classList.add('rolling');
-        let i = 0;
-        const roll = setInterval(() => {
-            const temp = foodDB[Math.floor(Math.random() * foodDB.length)];
-            menuEl.innerHTML = `<div class="food-icon">${temp.i}</div><div class="food-name">${temp.n}</div>`;
-            if (i++ > 15) {
-                clearInterval(roll);
-                menuEl.classList.remove('rolling');
-                const win = currentPool.pop();
-                menuEl.innerHTML = `<div class="food-icon">${win.i}</div><div class="food-name">${win.n}</div>`;
-                quoteEl.innerText = win.q;
-                document.getElementById('remain').innerText = currentPool.length;
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
             }
-        }, 60);
-    }
+            return array;
+        }
 
-    resetPool();
-</script>
+        function toggleTag(btn, tag) {
+            selectedTags.has(tag) ? selectedTags.delete(tag) : selectedTags.add(tag);
+            btn.classList.toggle('active');
+            resetPool();
+        }
+
+        function resetPool() {
+            const tags = Array.from(selectedTags);
+            const filtered = tags.length === 0 ? [...foodDB] : foodDB.filter(f => tags.every(t => f.t.includes(t)));
+            currentPool = shuffle([...filtered]);
+            document.getElementById('remain').innerText = currentPool.length;
+        }
+
+        function handleSpin() {
+            if (currentPool.length === 0) resetPool();
+            const menuEl = document.getElementById('menuResult');
+            const quoteEl = document.getElementById('quote');
+            if (currentPool.length === 0) return;
+
+            menuEl.classList.add('rolling');
+            let i = 0;
+            const roll = setInterval(() => {
+                const temp = foodDB[Math.floor(Math.random() * foodDB.length)];
+                menuEl.innerHTML = `<div class="food-icon">${temp.i}</div><div class="food-name" style="font-size:2rem">${temp.n}</div>`;
+                if (i++ > 15) {
+                    clearInterval(roll);
+                    menuEl.classList.remove('rolling');
+                    const win = currentPool.pop();
+                    menuEl.innerHTML = `<div class="food-icon">${win.i}</div><div class="food-name">${win.n}</div>`;
+                    quoteEl.innerText = win.q;
+                    document.getElementById('remain').innerText = currentPool.length;
+                }
+            }, 60);
+        }
+        resetPool();
+    </script>
+
 </body>
+
 </html>
